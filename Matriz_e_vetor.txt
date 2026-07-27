@@ -1,0 +1,10 @@
+matriz:
+    int matriz[10][10];
+
+
+vetor(listas):
+    double vetor[10];
+
+scanf("%d",&x);
+printf("%d",x);
+
