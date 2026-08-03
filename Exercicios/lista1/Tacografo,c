@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() {
+	int n, d = 0, i,t,v;
+	scanf("%d", &n);
+	for(i = 0; i < n;i++)
+	{
+	    scanf("%d%d", &t, &v);
+	    d+= v * t;
+	}
+	printf("%d", d);
+}
