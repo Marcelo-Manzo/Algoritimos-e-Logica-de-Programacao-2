@@ -1,15 +1,19 @@
 #include<stdio.h>
 int main()
 {
-    char nome[101];
-    int cont = 0;
-    scanf("%100s%*c",nome)
-    while(nome[cont] != '\0')
+    char nome[101],maiusculo[101];
+    int i = 0;
+    scanf("%100[^\n]%*c",nome)
+    while(nome[i] != '\0')
     {
-        cont++
+        if(nome[i]>=97 && nome[i]<=122)
+        {
+            maiusculo[i] = nome[i]-32;
+        }
+        else{
+            maiusculo[i] = nome[i];
+        }
+        i++;
     }
-    for(i = 0; i<cont; i++)
-    {
-        
-    }
+    
 }
