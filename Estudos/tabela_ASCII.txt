@@ -1,0 +1,19 @@
+A tabela ASCII (American Standard Code for Information Interchange) é um padrão de codificação numérica que relaciona caracteres de texto a números binários para que computadores possam trocá-los e entendê-los. 
+Ela possui 128 itens divididos em caracteres de controle e caracteres imprimíveis.O que são os itens da tabela ASCII?A tabela original usa valores de 0 a 127 (em decimal)
+
+O que são os itens da tabela ASCII?
+A tabela original usa valores de 0 a 127 (em decimal)
+:0 a 31 (Caracteres de Controle): Instruções antigas para controlar dispositivos de hardware (como impressoras e telas), incluindo:0 (NUL - Nulo), 7 (BEL - Alerta/Campainha), 8 (BS - Recuo/Backspace), 9 (HT - Tabulação horizontal), 10 (LF - Nova linha), 13 (CR - Retorno de carro), 27 (ESC - Escape).
+32 (Espaço): O caractere de espaço em branco.
+33 a 47 (Símbolos e Pontuação): Caracteres como !, ", #, \$, %, &, ', (, ), *, +, ,, -, ., /.
+48 a 57 (Números): Os dígitos numéricos de 0 a 9.
+58 a 64 (Símbolos e Pontuação): Caracteres como :, ;, <, =, >, ?, @.
+65 a 90 (Letras Maiúsculas): O alfabeto inglês em letras maiúsculas, de A a Z.
+91 a 96 (Símbolos): Caracteres como [, \, ], ^, _, `.
+97 a 122 (Letras Minúsculas): O alfabeto inglês em letras minúsculas, de a a z.
+123 a 126 (Símbolos): Caracteres como {, |, }, ~.
+127 (Excluir): O comando DEL (Delete).
+
+
+char y = 97; --> sera um caracter.
+printf("%d",y) --> imprimira 97
