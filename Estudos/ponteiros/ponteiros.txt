@@ -41,3 +41,30 @@ Exemplo:
         return 0;
     }
 
+OBSERVACAO 1:
+uma variavel ponteiro pode ser alterada:
+
+int *p;
+p = p+2
+p++
+
+porem, uma variavel vetor nao:
+int x[5]
+x =x + 1
+- o nome do vetor eh um ponteiro constante, por isso nao pode ser alterado
+
+OBSERVACAO 2:
+- pode-se atribuir uma string constante na declaracao de um ponteiro, como se faz com array:
+    char str1[] = "string1";
+    char *str2 = "string2";
+    - pois as strings constantes sao armazenadas num "Banco de strings" criado pelo compilador
+    - o compilador troca a constante pelo endereco de seu inicio no "banco de strings"
+    - Entretanto esse "Banco de strings" eh uma area Read only
+    -assim:
+
+        char str1[] = "string1";
+        str[0] = 'A';
+        strcpy(str1,"Texto" );
+        char *str2 = "string2";
+        str2[0] = 'A';
+        strcpy(str2, ""texto);
