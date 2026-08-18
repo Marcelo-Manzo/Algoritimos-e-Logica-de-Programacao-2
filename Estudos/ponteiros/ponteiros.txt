@@ -41,5 +41,3 @@ Exemplo:
         return 0;
     }
 
-
-    -

@@ -1,0 +1,32 @@
+ARITMETICA
+
+- a unidade eh buscada no tamanho EM BYTES do tipo q o ponteiro aponta
+
+exemplo: 
+ int *p;
+ p = p + 2;   p avanca 8 bytes($*2 bits)
+
+diferentestipos ocupam diferentes numeros de bytes na memoria
+- o endereco de uma variavel com mais de um byte eh sempre o menor dos enderecos que ela ocupa
+
+Funcao sisef()
+retorna o tamanho em bytes do parametro fornecido. 
+exemplo:
+    int x[3], *p;
+    printf("%d", sizef(char))
+    printf("%d",sizef(double))
+    printf("%d", sizef(x))
+    printf("%d", sizef(p))
+-----------------------------------------
+ARRAY e PONTEIRO
+
+todo array eh alocado num bloco contiguo da memoria
+exemplo: int x[5] = {3, -29, 4, null, -7}
+
+            ----------------- +4
+99   100  101  102  103  104  105  106  107  ......  116  117  118  119  120
+          x[0]                x[1]                        x[4]
+
+int *p; 
+p = x \\ o mesmo que p = &x;
+assim, x[i] eh o mesmo que *(p+i)
