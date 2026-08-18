@@ -1,0 +1,45 @@
+--conceito:
+    -ocupa espaco na memoria ram
+    -armazena dados compativeis a seu tipo(int, double, char)
+
+uma Variavel ponteiro:
+    - armazena o endereco de memoria
+    - permite a manipulacao direta da memoria
+
+Declaracao:
+    sintaxe:
+        <tipo da variavel do endereco de memoria> * <indentificador>
+        exempolo: int *p
+        p - eh uma variavel ponteiro
+        int - a variavel p armazenara o endereco de um inteiro
+        dizemos que p aponta para um inteiro
+
+    Operadores:
+    &: retornara o endereco de uma variavel
+    *: retorna o conteudo do endereco apontado pelo ponteiro
+
+    Inicializacao:
+        um ponteiro pode ser inicializado com um endereco valido: 
+            int x;
+            int *p = &x
+        ou com o valor null: int *p = null
+        - ponteiro n aponta para variavel alguma.
+        - evita uso de lixo de memoria
+    
+    
+Exemplo:
+
+    int main()
+    {
+        int x;                      variavel x foi alocada no endereco 1000(exemplo)
+        int *p;                     ficou armazenado no enderexo 2000
+        x = 5;                      x recebe valor 5
+        p = &x;                     o endereco de p passa a ser o de x, ou seja, 1000
+        *p = 9;                     acessa o endereco que p armazena, ou seja, 9 sera armazenado no endereco P. ent o 5 passa a ser 9  pois p aponta para x 
+
+        printf("%d", x)             printa 9
+        return 0;
+    }
+
+
+    -
