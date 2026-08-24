@@ -18,4 +18,4 @@ int main()
     p esta apontando para v[0], ou seja,  1.
     p++;
     agora p esta apontando para v[1] ou seja, 2
-}
+}  

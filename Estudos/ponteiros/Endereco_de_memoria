@@ -1,0 +1,11 @@
+🗒️ Resumo de Memória: Endereços, Bytes e Variáveis1. 
+
+O que é o Endereço de Memória?Apenas um número: É uma etiqueta de localização (como o número de uma casa).
+Fixo: O número do endereço não muda de tamanho e não tem nada a ver com o tamanho do dado guardado nele.
+
+2. A Regra de Ouro da Memória RAM1 Endereço = 1 Byte: Cada número de endereço aponta para um espaço que guarda exatamente 1 byte (que são 8 bits de zeros e uns).Se o endereço é 5012, ele guarda 1 byte. O próximo byte estará, obrigatoriamente, no 5013.
+
+3. Como as Variáveis se OrganizamTamanhos diferentes: Cada tipo de dado precisa de um número de "caixas" (bytes) para existir:char (Texto/Letra) = 1 byte (1 caixa).int (Número Inteiro) = 4 bytes (4 caixas juntas).double (Número Quebrado) = 8 bytes (8 caixas juntas).O Endereço Principal: Se um int ocupa os espaços 5012, 5013, 5014 e 5015, o endereço oficial dessa variável é apenas o primeiro: 5012. O computador sabe que deve ler os 3 seguintes por causa do tipo (int).
+
+4. Como Funcionam os Arrays (Vetores)Elementos Grudados: No array, todos os elementos ficam em sequência na memória.
+Distância Variável (Stride): O "pulo" de endereço entre um elemento e o outro muda de acordo com o tamanho do tipo de dado:Array de char: Pula de 1 em 1 endereço (5000, 5001, 5002...).Array de int: Pula de 4 em 4 endereços (5000, 5004, 5008...).Vantagem: Permite velocidade extrema. O computador calcula a posição de qualquer elemento instantaneamente usando a fórmula:Endereço = Início + (Posição × Tamanho do Tipo). 
