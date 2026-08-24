@@ -2,12 +2,11 @@
 #include <string.h>
 
 int main() {
-    int n;
+    int n, continuar_leitura = 1;;
     scanf("%d", &n);
 
     // Dicionário com tamanho máximo de 50 letras por palavra
     char palavrasIngles[n][50], setas[n][50],traducao[n][50], frase[500];
-    int continuar_leitura = 1;
 
     // 1. Lendo o dicionário
     for (int i = 0; i < n; i++) {
