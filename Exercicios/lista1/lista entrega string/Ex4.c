@@ -13,27 +13,27 @@ int main()
         scanf("%s", predio[i]);
     }
     
-    for(i = 0; i < n; i++)
+    // O laço externo só continua se i < n E se NÃO tem fogo (!tem_fogo)
+    for(i = 0; i < n && !tem_fogo; i++)
     {
-        for(j = 0; j < 5; j++)
+        // O primeiro laço interno só continua se j < 5 E se NÃO tem fogo (!tem_fogo)
+        for(j = 0; j < 5 && !tem_fogo; j++)
         {
             if(predio[i][j] == 'F')
             {
                 tem_fogo = 1;
-                break;
             }
         }
         
-        if (tem_fogo == 1) 
+        // A contagem de 'P' só acontece se o fogo NÃO tiver sido detectado
+        if (!tem_fogo) 
         {
-            break; 
-        }
-
-        for(j = 0; j < 5; j++)
-        {
-            if(predio[i][j] == 'P')
+            for(j = 0; j < 5; j++)
             {
-                p++;
+                if(predio[i][j] == 'P')
+                {
+                    p++;
+                }
             }
         }
     }
