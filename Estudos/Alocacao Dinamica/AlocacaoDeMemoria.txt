@@ -1,0 +1,21 @@
+Alocação Estática
+
+Ocorre em tempo de compilação, onde o tamanho e o endereço das variáveis são definidos antes de o programa ser executado.
+
+Características: A memória alocada permanece fixa durante toda a execução; o acesso aos dados é rápido devido a endereços fixos conhecidos; e há desperdício de espaço se o tamanho reservado for maior do que o necessário.
+
+Uso típico: Variáveis globais e locais estáticas (static em C).
+
+Alocação Dinâmica
+
+Ocorre em tempo de execução, permitindo que o programa solicite blocos de memória conforme necessário usando funções específicas (como malloc e free em C ou new e delete em C++).
+
+Características: Flexibilidade total para redimensionar estruturas de dados (como listas encadeadas e árvores); evita desperdício de memória; porém, exige controle manual ou gerenciadores automáticos (Garbage Collector) para evitar vazamentos de memória (memory leaks).
+
+Uso típico: Dados cujo volume só é conhecido após a entrada do usuário ou processamento inicial.
+
+Gerenciamento de Memória
+
+Conjunto de técnicas e mecanismos do sistema operacional e da linguagem para controlar o ciclo de vida da memória (alocação, uso e liberação).
+
+Funções principais: Mapear o espaço de endereçamento lógico para a memória física, isolar processos para que um não corrompa os dados do outro, e implementar abstrações como a memória virtual e paginação para otimizar o uso da RAM física e do disco.

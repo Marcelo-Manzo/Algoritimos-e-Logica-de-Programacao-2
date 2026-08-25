@@ -17,7 +17,10 @@ int main()
         int menor = i;
         for(j = i + 1; j < n; j++)
         {
-            for(int z = 0; z < 50; z++)
+            int parar_caractere = 0; // Variável para controlar a parada da comparação
+            
+            // O laço só continua se z < 50 E se NÃO for para parar a comparação
+            for(int z = 0; z < 50 && !parar_caractere; z++)
             {
                 if(nomes[j][z] != nomes[menor][z])
                 {
@@ -25,12 +28,13 @@ int main()
                     {
                         menor = j;
                     }
-                    break;
+                    parar_caractere = 1; // Substitui o primeiro break
                 }
                 
-                if(nomes[j][z] == '\0') 
+                // O 'else if' garante que se os caracteres forem iguais mas chegarem ao fim (\0), para também
+                else if(nomes[j][z] == '\0') 
                 {
-                    break;
+                    parar_caractere = 1; // Substitui o segundo break
                 }
             }
         }
