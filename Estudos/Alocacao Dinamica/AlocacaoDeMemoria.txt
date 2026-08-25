@@ -19,3 +19,11 @@ Gerenciamento de Memória
 Conjunto de técnicas e mecanismos do sistema operacional e da linguagem para controlar o ciclo de vida da memória (alocação, uso e liberação).
 
 Funções principais: Mapear o espaço de endereçamento lógico para a memória física, isolar processos para que um não corrompa os dados do outro, e implementar abstrações como a memória virtual e paginação para otimizar o uso da RAM física e do disco.
+
+Resumo Comparativo: malloc vs calloc
+
+malloc (Memory Allocation): Aloca um bloco único de memória de tamanho fixo em bytes. É mais rápida por não alterar o conteúdo alocado, mas o espaço vem preenchido com lixo de memória (dados antigos residuais).
+
+calloc (Contiguous Allocation): Aloca memória para um número específico de elementos e zera todos os bytes (inicializa com 0). É ligeiramente mais lenta por conta dessa limpeza prévia, mas evita erros por leitura de dados indefinidos.
+
+Pontos em comum: Ambas alocam na memória Heap, retornam um ponteiro void* (ou NULL se faltar memória) e exigem liberação manual com free().
