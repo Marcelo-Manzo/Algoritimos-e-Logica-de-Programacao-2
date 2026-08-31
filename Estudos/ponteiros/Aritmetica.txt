@@ -4,7 +4,7 @@ ARITMETICA
 
 exemplo: 
  int *p;
- p = p + 2;   p avanca 8 bytes($*2 bits)
+ p = p + 2;   p avanca 8 bytes($*4 bits)
 
 diferentestipos ocupam diferentes numeros de bytes na memoria
 - o endereco de uma variavel com mais de um byte eh sempre o menor dos enderecos que ela ocupa
