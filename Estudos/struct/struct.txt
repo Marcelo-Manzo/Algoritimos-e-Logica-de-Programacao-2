@@ -1,0 +1,39 @@
+Em C, uma struct (estrutura) é um tipo de dado personalizado que permite agrupar variáveis de diferentes tipos sob um único nome. É a forma como C lida com dados compostos e organizados.
+
+#include <stdio.h>
+#include <string.h>
+
+// Definindo a struct
+struct Pessoa {
+    char nome[50];
+    int idade;
+    float altura;
+};
+
+Inicialização Direta: Você pode inicializar os campos direto na criação.
+
+C
+struct Pessoa p1 = {"Ana", 28, 1.65};
+Atalho com typedef: Evita ter que escrever a palavra-chave struct toda vez que for declarar uma variável.
+
+C
+typedef struct {
+    char nome[50];
+    int idade;
+} Pessoa;
+
+// Agora basta usar "Pessoa" diretamente:
+Pessoa p1 = {"Carlos", 30};
+
+Ponteiros para Struct (Operador ->): Quando você manipula uma struct via ponteiro, utiliza o operador seta (->) para acessar os membros em vez do ponto (.).
+
+C
+Pessoa p1 = {"Ana", 28};
+Pessoa *ptr = &p1;
+
+// Acesso via ponteiro
+printf("Idade: %d\n", ptr->idade); // Equivalente a (*ptr).idade
+Alocação de Memória
+Ao contrário do Java (onde objetos ficam sempre na memória Heap), em C uma struct pode ser alocada diretamente na Stack (como uma variável local rápida) ou dinamicamente na Heap usando malloc().
+
+Passagem em Funções: Por padrão, passar uma struct para uma função faz uma cópia completa de seus dados. Para evitar perda de desempenho com structs grandes, costuma-se passar um ponteiro (Pessoa *p).
