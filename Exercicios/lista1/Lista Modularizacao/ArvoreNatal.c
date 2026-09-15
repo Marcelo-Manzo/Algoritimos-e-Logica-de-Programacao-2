@@ -28,12 +28,19 @@ void mostrarBase(int n) {
     } 
 }
 
+int mostrarArvore(int n)
+{
+    mostrarPico(n);
+    mostrarBase(n);
+    return 0;
+    
+}
+
 int main() { 
     int n; 
     if (scanf("%d", &n) != 1) return 1;
     
-    mostrarPico(n); 
-    mostrarBase(n); 
+    mostrarArvore(n)
     
     return 0; 
 }
