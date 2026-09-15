@@ -1,0 +1,71 @@
+Modularizacao(funcoes)
+
+    divisao do programa em partes funcionais. denominadas 
+
+Sub-Rotinas, permitindo:
+    reaproveitamento de codigo
+    aumento de produtividade 
+    aumento de confiabilidade 
+    devem realizar uma unica tarefa com o minimo de comunicacao entre si
+
+--------------------------------------------------------------------------------
+1. EXEMPLO DE BAIXA COESÃO (Código Ruim / Classe "Deus" ou "Canivete Suíço")
+--------------------------------------------------------------------------------
+Uma única classe assume responsabilidades totalmente diferentes. Se algo mudar 
+na regra de envio de e-mails ou no banco de dados, esta classe inteira quebra.
+
+┌────────────────────────────────────────────────────────┐
+│                     Classe: Pedido                     │
+├────────────────────────────────────────────────────────┤
+│ ❌ calcularTotal()      -> Regra de Negócio             │
+│ ❌ salvarNoBanco()      -> Persistência de Dados        │
+│ ❌ enviarEmailCliente() -> Comunicação / Notificação    │
+└────────────────────────────────────────────────────────┘
+
+Em código fictício:
+class Pedido {
+    void processarPedido() {
+        // 1. Calcula valores
+        // 2. Conecta no MySQL e faz "INSERT INTO..."
+        // 3. Configura SMTP e envia e-mail
+    }
+}
+
+--------------------------------------------------------------------------------
+2. EXEMPLO DE ALTA COESÃO (Código Bom / Princípio da Responsabilidade Única)
+--------------------------------------------------------------------------------
+O problema é resolvido dividindo as funções em classes separadas. Cada classe 
+faz apenas UMA coisa e faz muito bem. Se o banco de dados mudar, você só mexe 
+na classe de repositório.
+
+┌──────────────────────┐     ┌──────────────────────┐     ┌──────────────────────┐
+│    Classe: Pedido    │     │  Classe: PedidoRepository │  Classe: EmailService│
+├──────────────────────┤     ├──────────────────────┤     ├──────────────────────┤
+│ ✓ calcularTotal()    │     │ ✓ salvar(pedido)     │     │ ✓ enviar(pedido)     │
+└──────────────────────┘     └──────────────────────┘     └──────────────────────┘
+   (Regra de Negócio)           (Acesso ao Banco)            (Sistema de E-mail)
+
+Em código fictício modular:
+class Pedido {
+    void calcularTotal() { /* apenas matemática do pedido */ }
+}
+
+class PedidoRepository {
+    void salvar(Pedido p) { /* apenas comandos SQL/Banco */ }
+}
+
+class EmailService {
+    void enviarConfirmacao(Pedido p) { /* apenas protocolo de e-mail */ }
+}
+
+================================================================================
+VANTAGENS DA ALTA COESÃO:
+- Fácil de ler e entender.
+- Fácil de testar (você testa as funções isoladamente).
+- Altamente reutilizável em outras partes do sistema.
+- Manutenção segura (alterar uma classe não quebra as outras).
+================================================================================
+
+
+
+
