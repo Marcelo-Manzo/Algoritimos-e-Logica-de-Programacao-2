@@ -1,23 +1,23 @@
 # 💻 C Programming Studies & Exercises
 
-Uma coleção de estudos, anotações e exercícios de programação em C desenvolvidos durante a disciplina de **Algoritmos e Lógica de Programação 2** do IFSP. Este repositório documenta minha jornada de aprendizado através de conceitos fundamentais e intermediários da linguagem C.
+A collection of C programming study notes and exercises developed during the **Algorithms and Programming Logic 2** course at IFSP. This repository documents my learning journey through fundamental and intermediate C concepts, organized into study notes and practical exercises.
 
 ---
 
 ## 📌 Topics Covered
 
-- **Basics:** Tipos de dados, entrada e saída (`printf`/`scanf`), estruturas de controle e operadores.
-- **Arrays & Matrices:** Vetores (1D) e matrizes (2D), laços aninhados, multiplicação de matrizes e validações de matrizes (triangular, quadrado mágico).
-- **Strings:** Declaração, manipulação via tabela ASCII, funções da `string.h` (`strlen`, `strcpy`, `strcat`, `strcmp`) e algoritmos com strings (reversão, contagem de palavras, ordenação).
-- **Functions (Modularization):** Protótipos, passagem de parâmetros, decomposição de código e princípio de responsabilidade única.
-- **Structs:** Declaração, `typedef`, inicializadores designados, arrays de structs e modelagem de dados do mundo real.
-- **Pointers:** Operadores de endereço (`&`) e desreferenciação (`*`), aritmética de ponteiros, relações entre ponteiros e arrays, e ponteiro para ponteiro (*aliasing*).
-- **Dynamic Memory Allocation:** Alocação dinâmica com `malloc`, `calloc`, `free` e criação de arrays dinâmicos de structs.
+- **Basics:** Data types, input/output (`printf`/`scanf`), control flow, and operators.
+- **Arrays & Matrices:** 1D arrays and 2D matrices, nested loops, matrix multiplication, and matrix validations (triangular, magic square).
+- **Strings:** Declaration, ASCII manipulation, `string.h` functions (`strlen`, `strcpy`, `strcat`, `strcmp`), and string algorithms (reversal, word counting, sorting).
+- **Functions (Modularization):** Prototypes, parameter passing, code decomposition, and single-responsibility principle.
+- **Structs:** Declaration, `typedef`, designated initializers, arrays of structs, and real-world data modeling.
+- **Pointers:** Address-of (`&`) and dereference (`*`) operators, pointer arithmetic, arrays as pointers, and pointer-to-pointer aliasing.
+- **Dynamic Memory Allocation:** Dynamic allocation using `malloc`, `calloc`, `free`, and dynamic arrays of structs.
 
 ---
 
 ## 📂 Repository Structure
 
 ```text
-├── Estudos/       # Anotações de estudo (.txt) e exemplos práticos (.c) organizados por tópico
-└── Exercicios/    # Listas de exercícios práticos divididas por temas
+├── Estudos/       # Study notes (.txt) and learning examples (.c) organized by topic
+└── Exercicios/    # Practical exercise sets organized by topic
