@@ -37,5 +37,6 @@ int main()
         }
     }
     printf("%.2lf", total);
+    free(produtos);
 
 }

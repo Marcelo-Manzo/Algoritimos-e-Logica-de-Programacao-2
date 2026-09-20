@@ -92,4 +92,8 @@ int main()
             }
         }
     }
+    free(convidados);
+    free(preferencial);
+    free(empregados);
+    free(lista);
 }
