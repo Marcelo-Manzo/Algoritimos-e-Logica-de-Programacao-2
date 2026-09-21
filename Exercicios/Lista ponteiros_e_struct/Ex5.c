@@ -22,7 +22,7 @@ int main(void)
         if (!lista[j]) return 1;
     }
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) { 
         for (int j = 0; j < NUM_LISTAS; j++) {
             scanf("%d %1s %d", &lista[j][i].idade, lista[j][i].sexo, &lista[j][i].tipo);
         }

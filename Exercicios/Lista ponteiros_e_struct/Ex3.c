@@ -16,7 +16,7 @@ int main()
     
     for(int i = 0; i < n; i++)
     {
-        scanf("%lf", &notas[i]);
+        scanf("%lf", &notas[i]); 
     }
     
     for(int i = 0; i < n; i++)
