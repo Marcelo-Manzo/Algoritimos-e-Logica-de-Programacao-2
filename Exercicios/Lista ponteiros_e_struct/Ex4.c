@@ -32,7 +32,7 @@ int main()
             if(strcmp(product_name, produtos[j].nome) == 0 && produtos[j].qtd > 0)
             {
                 total += produtos[j].preco;
-                produtos[i].qtd --;
+                produtos[j].qtd --;
             }
         }
     }

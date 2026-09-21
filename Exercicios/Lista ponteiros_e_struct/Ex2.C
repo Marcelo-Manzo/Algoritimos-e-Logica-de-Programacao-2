@@ -17,7 +17,7 @@ int main() {
     Aluno *alunos_maiores = (Aluno*) calloc(n, sizeof(Aluno));
     
     for (int i = 0; i < n; i++) {
-        scanf(" %[^\n]d", alunos[i].nome);
+        scanf(" %[^\n]", alunos[i].nome);
         scanf("%d", &alunos[i].idade);
         
         if (alunos[i].idade < 14) {
