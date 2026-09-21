@@ -38,12 +38,12 @@ int main() {
     printf("Maior Salario registrado\n");
     printf("ID: %d\n", funcionarios[indice_maior_salario].id);
     printf("Idade: %d\n", funcionarios[indice_maior_salario].idade);
-    printf("Salario: %.2f\n\n", funcionarios[indice_maior_salario].salario);
+    printf("Salario: %.2lf\n\n", funcionarios[indice_maior_salario].salario);
 
     printf("Menor idade registrada\n");
     printf("ID: %d\n", funcionarios[indice_menor_idade].id);
     printf("Idade: %d\n", funcionarios[indice_menor_idade].idade);
-    printf("Salario: %.2f\n", funcionarios[indice_menor_idade].salario);
+    printf("Salario: %.2lf\n", funcionarios[indice_menor_idade].salario);
 
     free(funcionarios);
     return 0;
