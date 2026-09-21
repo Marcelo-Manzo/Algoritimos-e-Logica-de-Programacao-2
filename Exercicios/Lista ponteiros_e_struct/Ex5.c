@@ -2,98 +2,63 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct
-{
+typedef struct {
     int idade;
     char sexo[2];
-    int tipo;
-}Pessoa;
+    int tipo; // 1 = inteira (R$40), outro = meia (R$20)
+} Pessoa;
 
-int main()
+int main(void)
 {
-    int n, f;
-    double receitaTotal = 0, receitaFila = 0, numeroH = 0, numeroM = 0, media_idades = 0; 
-    scanf("%d", &n);
-    Pessoa *convidados = (Pessoa*)calloc(n,sizeof(Pessoa));
-    Pessoa *empregados = (Pessoa*)calloc(n,sizeof(Pessoa));
-    Pessoa *preferencial = (Pessoa*)calloc(n,sizeof(Pessoa));
+    int n, f, NUM_LISTAS = 3;
+    double receitaTotal = 0, receitaFila = 0, mediaIdades = 0;
+    int numeroH = 0, numeroM = 0;
 
-    Pessoa *lista[3] = {convidados, empregados, preferencial}; 
+    if (scanf("%d", &n) != 1) return 1;
 
-    for(int i = 0; i<n; i++)
-    {
-        for(int j = 0; j<3; j++)
-        {
-            scanf("%d%s%d", &lista[j][i].idade, lista[j][i].sexo, lista[j][i].tipo);
+    Pessoa *lista[NUM_LISTAS];
+    for (int j = 0; j < NUM_LISTAS; j++) {
+        lista[j] = calloc(n, sizeof(Pessoa));
+        if (!lista[j]) return 1;
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < NUM_LISTAS; j++) {
+            scanf("%d %1s %d", &lista[j][i].idade, lista[j][i].sexo, &lista[j][i].tipo);
         }
     }
-    scanf("%s", f);
 
-    for(int i = 0; i<n; i++)
-    {
-        for(int j = 0; j<3; j++)
-        {
-            if(lista[j][i].tipo == 1)
-            {
-                receitaTotal+=40;
-            }
-            else{
-                receitaTotal+=20;
-            }
-            if(strcmp(lista[j][i].tipo, "M") == 0){
+    scanf("%d", &f);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < NUM_LISTAS; j++) {
+            receitaTotal += (lista[j][i].tipo == 1) ? 40 : 20;
+
+            if (lista[j][i].sexo[0] == 'M')
                 numeroH++;
-            }
-            else{
+            else
                 numeroM++;
-            }
-            media_idades+=lista[j][i].idade;
+
+            mediaIdades += lista[j][i].idade;
         }
     }
 
-    media_idades = media_idades/(n*3);
+    mediaIdades /= (n * NUM_LISTAS);
 
-    if(f == 0)
-    {
-        for(int i = 0; i<n; i++)
-        {
-            if(lista[0][i].tipo == 1)
-            {
-                receitaFila += 40;
-            }
-            else{
-                receitaFila += 20;
-            }
+    if (f >= 0 && f < NUM_LISTAS) {
+        for (int i = 0; i < n; i++) {
+            receitaFila += (lista[f][i].tipo == 1) ? 40 : 20;
         }
+    }
 
+    printf("Receita total: %.2f\n", receitaTotal);
+    printf("Receita da fila %d: %.2f\n", f, receitaFila);
+    printf("Homens: %d, Mulheres: %d\n", numeroH, numeroM);
+    printf("Media de idades: %.2f\n", mediaIdades);
+
+    for (int j = 0; j < NUM_LISTAS; j++) {
+        free(lista[j]);
     }
-    else if(f == 1)
-    {
-        for(int i = 0; i<n; i++)
-        {
-            if(lista[1][i].tipo == 1)
-            {
-                receitaFila += 40;
-            }
-            else{
-                receitaFila += 20;
-            }
-        }
-    }
-    else if(f==2)
-    {
-        for(int i = 0; i<n; i++)
-        {
-            if(lista[2][i].tipo == 1)
-            {
-                receitaFila += 40;
-            }
-            else{
-                receitaFila += 20;
-            }
-        }
-    }
-    free(convidados);
-    free(preferencial);
-    free(empregados);
-    free(lista);
+
+    return 0;
 }
