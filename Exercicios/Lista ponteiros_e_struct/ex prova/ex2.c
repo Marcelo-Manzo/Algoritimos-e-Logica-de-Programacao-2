@@ -15,7 +15,7 @@ int main()
     Aluno *p = alunos;
     for(int i = 0; i< n; i++)
     {
-        scanf("%s%f%f", *(p)nome, p->nota1, p->nota2);    // *(p).nome == p->nome
+        scanf("%s%f%f", *(p).nome, p->nota1, p->nota2);    // *(p).nome == p->nome
         p++;
     }
     printf("%f", media(alunos));
