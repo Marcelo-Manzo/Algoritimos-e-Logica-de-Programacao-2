@@ -1,0 +1,95 @@
+DIFERENÇA ENTRE "." E "->" EM STRUCTS COM PONTEIROS
+=====================================================
+
+REGRA PRÁTICA (decore essa primeiro):
+--------------------------------------
+Se a variável foi declarada COM asterisco (é um ponteiro), tipo:
+
+    Aluno *p;
+
+...então para acessar um campo dela, você SEMPRE usa seta:
+
+    p->nota1
+    p->nome
+
+Se a variável foi declarada SEM asterisco (é a struct "de verdade"), tipo:
+
+    Aluno x;
+
+...então você usa ponto:
+
+    x.nota1
+    x.nome
+
+Resumo:
+  - tem * na declaração -> usa "->"
+  - não tem * na declaração -> usa "."
+
+
+POR QUE ISSO ACONTECE (explicação mais a fundo)
+--------------------------------------------------
+Pensa assim:
+
+- Uma struct normal (Aluno x;) É a "casa" em si. Você está dentro dela.
+  Para falar com quem mora lá dentro, é só chamar: x.nota1
+
+- Um ponteiro (Aluno *p;) NÃO é a casa — é só um "papel com o endereço
+  da casa escrito nele" (tipo "Rua X, 123"). Você não pode acessar
+  campo nenhum direto no papel, porque o papel não tem "nota1" dentro
+  dele, só tem um endereço escrito.
+
+Para acessar o campo através do papel (ponteiro), você primeiro precisa
+"ir até o endereço escrito nele" — isso é o que o asterisco (*) faz,
+chamado de "desreferenciar":
+
+    *p          -> "vai até o endereço que está escrito no papel p"
+                   (agora você está DENTRO da casa)
+
+    (*p).nota1  -> agora que está dentro, acessa o campo nota1
+
+Como escrever (*p).nota1 toda hora é chato, a linguagem C criou um
+atalho que faz as duas coisas de uma vez:
+
+    p->nota1    -> exatamente igual a (*p).nota1
+
+
+E O CASO p[i].nota1 (quando se usa índice)?
+-----------------------------------------------
+Aqui é diferente porque p[i] JÁ FAZ a "entrada na casa" escondida.
+
+p[i] é apenas um "apelido" (açúcar sintático) para *(p + i):
+
+    p[i]         equivale a   *(p + i)
+    p[i].nota1   equivale a   (*(p + i)).nota1
+
+Ou seja: como p[i] já tem o "*" embutido dentro dele, o que sobra
+já é a struct de verdade (a "casa"), não mais o ponteiro (o "papel").
+Por isso, depois de p[i], se usa PONTO, e não seta.
+
+Essas duas formas são idênticas, só mudam a notação:
+
+    p[i].nota1
+    (p + i)->nota1
+
+
+TABELA RESUMO
+----------------
+| O que você tem                     | Operador a usar |
+|-------------------------------------|------------------|
+| struct normal (sem *)               | .                |
+| ponteiro para struct (com *)        | ->               |
+| ponteiro + índice (ex: p[i])        | .  (porque já "entrou" na struct) |
+| ponteiro + soma manual (ex: p+i)    | -> (ainda é ponteiro, não entrou) |
+
+
+EXEMPLO PRÁTICO DO ERRO COMUM
+----------------------------------
+    Aluno *p = alunos;   // p é ponteiro (tem *) -> sempre "->"
+
+    p.nota1    // ERRADO: p é ponteiro, não pode usar "."
+    p->nota1  == (*p).nota1 // CERTO
+
+Se em algum momento você trocar para usar índice:
+
+    alunos[i].nota1   // CERTO: aqui "entrou" na struct via [i], usa "."
+    alunos[i]->nota1  // ERRADO: já não é mais ponteiro depois do [i]
