@@ -1,0 +1,58 @@
+=============================================
+         VARIÁVEIS LOCAIS E GLOBAIS
+=============================================
+
+1. VARIÁVEIS LOCAIS
+-------------------
+- Declaradas DENTRO de uma função (ou bloco { }).
+- Só existem e são acessíveis dentro da função/bloco onde foram declaradas.
+- São criadas quando a função é chamada e destruídas quando a função termina.
+- Podem ter o mesmo nome em funções diferentes sem conflito.
+
+Exemplo:
+    void funcaoA() {
+        int x = 10;   // x é local a funcaoA
+    }
+
+    void funcaoB() {
+        int x = 20;   // x é local a funcaoB (não conflita com o da outra)
+    }
+
+
+2. VARIÁVEIS GLOBAIS
+---------------------
+- Declaradas FORA de todas as funções (no topo do arquivo).
+- Existem durante toda a execução do programa.
+- São acessíveis por QUALQUER função do arquivo (depois da declaração).
+- Evite usar em excesso — dificulta debug e manutenção.
+
+Exemplo:
+    int contador = 0;   // variável global
+
+    void incrementa() {
+        contador++;      // acessa a global
+    }
+
+    int main() {
+        incrementa();
+        printf("%d", contador);  // imprime 1
+    }
+
+
+3. VARIÁVEIS NECESSÁRIAS NA FUNÇÃO
+------------------------------------
+- Toda variável usada dentro de uma função deve ser declarada nela
+  (se local) ou ser global (declarada antes da função).
+- Regra: declare a variável no escopo mais pequeno possível.
+  Se só precisa dentro de uma função -> declare como local.
+  Se precisa entre várias funções -> passe como parâmetro ou use global.
+
+Resumo rápido:
+    ┌──────────────────┬────────────────────┬─────────────────────┐
+    │                  │      LOCAL         │      GLOBAL         │
+    ├──────────────────┼────────────────────┼─────────────────────┤
+    │ Onde declarada   │ Dentro da função   │ Fora das funções    │
+    │ Escopo           │ Só na função       │ Todo o arquivo      │
+    │ Tempo de vida    │ Enquanto roda      │ Toda a execução     │
+    │ Conflito de nome │ Não entre funções  │ Afeta todas         │
+    └──────────────────┴────────────────────┴─────────────────────┘
