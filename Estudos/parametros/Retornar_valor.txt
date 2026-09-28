@@ -1,0 +1,290 @@
+=====================================================================
+              RETORNAR VALOR DE UMA FUNCAO (C)
+=====================================================================
+funcoes que nao retornam valores sao chamadas de procedimentos e sao declaradas como void. O valor retornado eh passado de volta como o valor da funcao
+
+o valor retornado deve ser do *mesmo tipo* da funcao. 
+
+o retorno eh feito pelo comando return.
+----- apos o comando return a func eh encerrada e o fluxo do programa volta ao ponto de chamada.;
+----- ou seja, apos o return, nada mais eh executado na funcao.
+
+
+A funcao main() eh do tipo int, por default
+
+O comando `return` encerra a funcao e DEVOLVE um valor para quem chamou.
+O tipo declarado no `return` da definicao (o tipo de retorno) define
+QUE TIPO de dado volta para o chamador.
+
+    sintaxe:
+        tipo_retorno nome_funcao(parametros) {
+            return valor;      // devolve e sai da funcao
+        }
+
+    int somar(int a, int b) {
+        return a + b;         // devolve int
+    }
+
+    int main() {
+        int r = somar(2, 3);
+        printf("%d", r);      // imprime 5
+    }
+
+    "O que a funcao devolve" e definido pelo TIPO DE RETORNO:
+        int    -> devolve um inteiro
+        float  -> devolve um decimal
+        char   -> devolve um caractere
+        char * -> devolve um endereco (ponteiro)
+        struct -> devolve a struct inteira
+        void   -> NAO devolve nada
+
+
+----------------------------------------------------------------------
+1. FUNCAO void (sem retorno)
+----------------------------------------------------------------------
+- `void` = funcao que nao devolve valor algum.
+- Nao pode haver `return valor;` (apenas `return;` para sair antes).
+- Se a funcao precisa entregar um resultado, ela DEVE ter um tipo
+  de retorno diferente de void.
+
+    void imprimir(int x) {       // void: nao devolve nada
+        printf("%d", x);
+        return;                   // 'return;' puro (ou nem precisa)
+    }
+
+    int main() {
+        imprimir(10);             // nao da para usar o resultado
+    }
+
+
+----------------------------------------------------------------------
+2. RETORNAR TIPOS BASICOS
+----------------------------------------------------------------------
+    int     retorna_inteiro()   { return 42; }
+    float   retorna_decimal()   { return 3.14f; }
+    double  retorna_real()      { return 2.718; }
+    char    retorna_char()      { return 'A'; }
+    _Bool   retorna_logico()    { return 1; }
+
+Atencao: se o tipo de retorno e `int` e voce escreve `return 3.14;`,
+o valor e truncado para 3. Use `3.14f` com float, `2.718` com double.
+
+
+----------------------------------------------------------------------
+3. print vs return (saida na TELA x valor para o PROGRAMA)
+----------------------------------------------------------------------
+- `printf` mostra o dado para o USUARIO, nao devolve nada util.
+- `return` devolve o dado para o CODIGO, para que outra parte do
+  programa possa usar o resultado em calculos ou decisoes.
+
+    // RUIM: fixa o valor na tela, nao da para reaproveitar
+    float calcular_media(float a, float b) {
+        printf("Media = %.1f", (a + b) / 2);   // so imprime
+    }
+
+    // BOM: devolve o valor para quem chamou
+    float calcular_media(float a, float b) {
+        return (a + b) / 2;
+    }
+
+    int main() {
+        float m = calcular_media(8, 6);
+        printf("Media = %.1f", m);    // quem imprime e o main
+    }
+
+Regra: quem CALCULA nao imprime. Quem IMPRIME e quem CHAMA a funcao.
+
+
+----------------------------------------------------------------------
+4. USANDO O VALOR RETORNADO
+----------------------------------------------------------------------
+    int x = somar(2, 3);              // guardar em variavel
+    printf("%d", somar(2, 3));        // usar direto
+    if (somar(2, 3) > 4) { ... }      // usar em condicao
+    int v[somar(1, 2)];               // usar como tamanho de vetor
+    int r = somar(somar(1, 2), 4);    // aninhar chamadas
+
+
+----------------------------------------------------------------------
+5. RETORNANDO MAIS DE UM VALOR
+----------------------------------------------------------------------
+C so permite UM valor por `return`. Para devolver varios, use:
+
+  a) PARAMETROS POR REFERENCIA (ponteiros)
+     Exemplo:
+        void dividir(int a, int b, int *quociente, int *resto) {
+            *quociente = a / b;
+            *resto = a % b;
+        }
+
+        int main() {
+            int q, r;
+            dividir(17, 5, &q, &r);
+            printf("q=%d r=%d", q, r);   // q=3 r=2
+        }
+
+  b) STRUCT (agrupa varios dados em um so retorno) -> forma mais limpa
+     Exemplo:
+        typedef struct {
+            float media;
+            int    approved;
+        } Resultado;
+
+        Resultado avaliar(float nota) {
+            Resultado r;
+            r.media = nota;
+            r.approved = (nota >= 6);
+            return r;                 // devolve a struct inteira
+        }
+
+        int main() {
+            Resultado x = avaliar(7.5);
+            printf("%.1f %d", x.media, x.approved);
+        }
+
+
+----------------------------------------------------------------------
+6. ARRAY / VETOR NAO PODE SER RETORNADO DIRETAMENTE
+----------------------------------------------------------------------
+- `return` de um vetor nao existe em C (o `return` so copia o
+  endereco, e o vetor morre no fim da funcao).
+- Solucoes:
+    a) devolver o ponteiro para o vetor (`int *`)
+    b) devolver a struct que CONTEM o vetor
+    c) o chamador aloca e passa o endereco por parametro
+
+    // Solucao (a): devolve o endereco de um vetor ESTATICO (persiste)
+    int *criar_vetor(int n) {
+        static int v[100];           // 'static' mantem o vetor vivo
+        for (int i = 0; i < n; i++)
+            v[i] = i + 1;
+        return v;                    // devolve o endereco
+    }
+
+
+----------------------------------------------------------------------
+7. ERRO CLASSICO: DEVOLVER ENDERECO DE VARIAVEL LOCAL
+----------------------------------------------------------------------
+- A variavel local e DESTRUIDA quando a funcao termina.
+- Devolver `&x` (endereco de local) gera "lixo"/comportamento indefinido.
+
+    // ERRADO
+    int* criar(int n) {
+        int v[n];        // local: morre ao sair
+        return v;        // endereco invalido
+    }
+
+    // CERTO: ponteiro para heap (malloc) ou static
+    int* criar(int n) {
+        int *v = malloc(n * sizeof(int));
+        ...
+        return v;        // continua valido; quem recebe usa free()
+    }
+
+
+----------------------------------------------------------------------
+8. return DENTRO de LOOPS (encerramento antecipado)
+----------------------------------------------------------------------
+- `return` sai imediatamente da funcao, ignorando o resto do codigo.
+- Util para validar entrada e parar na hora em caso de erro.
+
+    int dividir(int a, int b) {
+        if (b == 0) {
+            return 0;        // erro: sai da funcao com 0
+        }
+        return a / b;
+    }
+
+    int primeiro_par(int v[], int n) {
+        for (int i = 0; i < n; i++) {
+            if (v[i] % 2 == 0)
+                return v[i];  // achou: sai na hora
+        }
+        return -1;            // nao achou nenhum
+    }
+
+
+----------------------------------------------------------------------
+9. return vs break vs continue
+----------------------------------------------------------------------
+    break     -> sai apenas do laco mais interno
+    continue  -> pula para a proxima iteracao do laco
+    return    -> sai da funcao INTEIRA (devolvendo o valor)
+
+    int somar(int v[], int n) {
+        int s = 0;
+        for (int i = 0; i < n; i++) {
+            if (v[i] < 0) continue;   // ignora negativos
+            if (v[i] == 0) break;      // para o laco
+            s += v[i];
+        }
+        return s;                     // sai a funcao no fim
+    }
+
+
+----------------------------------------------------------------------
+10. MULTIPLOS return (sair por varios pontos)
+----------------------------------------------------------------------
+- Uma funcao pode ter varios `return`, mas NENHUM caminho pode
+  chegar ao fim sem devolver valor (o compilador avisa).
+- `else` final explicito evita aviso do compilador.
+
+    int positivo_ou_negativo(int x) {
+        if (x > 0)
+            return 1;
+        else if (x < 0)
+            return -1;
+        else
+            return 0;
+    }
+
+
+----------------------------------------------------------------------
+11. return EM main (codigo de saida do SO)
+----------------------------------------------------------------------
+- `main` tambem pode devolver um inteiro.
+- 0   = terminou com SUCESSO
+- != 0 = terminou com ERRO (codigo de saida)
+- E o mesmo que `exit(0)` / `exit(1)`.
+
+    int main() {
+        if (algo_falhou())
+            return 1;        // sinaliza erro ao sistema
+        ...
+        return 0;            // sucesso
+    }
+
+
+=====================================================================
+RESUMO RAPIDO
+=====================================================================
+  ┌──────────────────┬──────────────────────────────────────────────┐
+  │ return valor;    │ Devolve o valor e ENCERRA a funcao           │
+  │ return;          │ Encerra a funcao (usado em funcoes void)    │
+  │ return dentro de │ Sai da funcao na hora, pulando o resto      │
+  │   laco           │                                              │
+  │ void             │ Funcao que nao devolve valor nenhum         │
+  └──────────────────┴──────────────────────────────────────────────┘
+
+  ┌──────────────────────────┬───────────────────┬──────────────────┐
+  │ Tipo de retorno          │ Devolve           │ Exemplo          │
+  ├──────────────────────────┼───────────────────┼──────────────────┤
+  │ void                     │ nada              │ imprimir(x)      │
+  │ int / float / double     │ numero            │ somar(a,b)       │
+  │ char                     │ 1 caractere       │ inicial(nome)    │
+  │ char * / int *           │ endereco (heap)   │ criar_vetor(n)   │
+  │ typedef struct ...       │ a struct inteira  │ avaliar(nota)    │
+  │ int **                   │ endereco de ponteiro| trocar(&p)     │
+  └──────────────────────────┴───────────────────┴──────────────────┘
+
+  ┌────────────────────────┬───────────────────────────────────────┐
+  │ Varios valores de      │ 1) Ponteiros (param. por referencia)   │
+  │ retorno?               │ 2) Struct agrupando os dados          │
+  │                        │ (nunca com vetor direto)               │
+  ├────────────────────────┼───────────────────────────────────────┤
+  │ Retorna endereco de     │ ERRADO (variavel local e destruida)  │
+  │ variavel local?        │ Use malloc ou static                  │
+  ├────────────────────────┼───────────────────────────────────────┤
+  │ print ou return?       │ return = logica (codigo)             │
+  │                        │ printf = apresentacao (tela)          │
+  └────────────────────────┴───────────────────────────────────────┘
