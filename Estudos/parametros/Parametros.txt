@@ -56,6 +56,28 @@ Exemplo:
         printf("%d", n);      // imprime 20 (mudou!)
     }
 
+
+    ex2:
+
+    void trocar(int *x, int *y)
+    {
+        int aux;
+        aux = *x;
+        *x = *y;
+        *y = aux;
+    }
+
+    int main()
+    {
+        int x, y; 
+        void trocar(&x. &y)
+    }
+    pode fazer assim:
+    int main(){
+        int x, y, *a = &x, *b = &y;
+        trocar(a,b);
+    }
+
     ERRO COMUM: esquecer o '*' no parametro.
     void dobrar(int x) { x = x * 2; }   // apenas copia -> nao funciona
 
