@@ -1,0 +1,227 @@
+=====================================================================
+             PARAMETROS RECEBIDOS EM FUNCOES (C)
+=====================================================================
+
+Toda funcao recebe parametros (argumentos) para poder trabalhar com dados
+que NAO estao dentro dela. O tipo do parametro e o que define como o dado
+sera entregue: por VALOR (copia) ou por REFERENCIA (endereco/ponteiro).
+
+    sintaxe:
+        tipo_retorno nome_funcao(tipo p1, tipo p2, ...) {
+            // usa p1, p2 ...
+        }
+
+        int somar(int a, int b) { return a + b; }
+              ^^^^^  ^parametro   ^argumento
+            retorno  nome
+
+
+----------------------------------------------------------------------
+1. PASSAGEM POR VALOR (o padrao)
+----------------------------------------------------------------------
+- A funcao recebe uma COPIA do valor do argumento.
+- Alteracoes dentro da funcao NAO afetam a variavel original.
+- O valor original do argumento permanece intacto apos a chamada.
+- Tipos simples: int, float, double, char.
+
+Exemplo:
+    void dobrar(int x) {      // x e uma COPIA
+        x = x * 2;
+        printf("%d", x);      // imprime 20
+    }
+
+    int main() {
+        int n = 10;
+        dobrar(n);
+        printf("%d", n);      // continua 10 (nao mudou)
+    }
+
+
+----------------------------------------------------------------------
+2. PASSAGEM POR REFERENCIA (usando ponteiro)
+----------------------------------------------------------------------
+- A funcao recebe o ENDERECO (&) da variavel, via um parametro ponteiro (*).
+- A funcao pode ALTERAR o valor original da variavel.
+- Necessario para: alterar o chamador, ponteiros, alocacao dinamica,
+  passagem de structs grandes, vetores.
+
+Exemplo:
+    void dobrar(int *x) {     // x aponta para a variavel do main
+        *x = *x * 2;          // altera o valor apontado
+    }
+
+    int main() {
+        int n = 10;
+        dobrar(&n);           // passa o endereco de n
+        printf("%d", n);      // imprime 20 (mudou!)
+    }
+
+    ERRO COMUM: esquecer o '*' no parametro.
+    void dobrar(int x) { x = x * 2; }   // apenas copia -> nao funciona
+
+
+----------------------------------------------------------------------
+3. VETORES (arrays) SEMPRE por referencia
+----------------------------------------------------------------------
+- Quando o parametro e um vetor, o "&" e os "[]" sao dispensaveis.
+- A funcao trabalha no vetor ORIGINAL (nao e copia).
+- Motivo: o nome do vetor JA e um endereco do primeiro elemento.
+
+    void mostrar(int v[], int n) { ... }    // equivalem a:
+    void mostrar(int *v, int n) { ... }
+
+Exemplo:
+    void zerar(int v[], int n) {
+        for (int i = 0; i < n; i++)
+            v[i] = 0;              // altera o vetor do main
+    }
+
+    int main() {
+        int nums[3] = {1, 2, 3};
+        zerar(nums, 3);            // nao precisa de &nums
+        printf("%d", nums[0]);     // imprime 0
+    }
+
+    Cuidado: o tamanho NAO viaja junto. E obrigatorio passar o `n`.
+
+
+----------------------------------------------------------------------
+4. STRINGS (vetor de char)
+----------------------------------------------------------------------
+- `char nome[]` como parametro equivale a `char *nome`.
+- A string NAO e passada por valor, apenas o endereco do 1o caractere.
+- Por isso: strlen(), strcat(), strcpy() nao alteram o tamanho
+  reservado -> risco de estouro de buffer (verificar espaco livre).
+- Funcao que devolve string deve ter o tipo `char *`.
+
+    void copiar(char destino[], const char origem[]) {
+        strcpy(destino, origem);   // depende do espaco em destino
+    }
+
+    int main() {
+        char a[20], b[20] = "IFSP";
+        copiar(a, b);
+        printf("%s", a);           // imprime IFSP
+    }
+
+
+----------------------------------------------------------------------
+5. STRUCTS
+----------------------------------------------------------------------
+- Structs pequenas podem ser passadas por valor (copia inteira).
+- Para alterar o struct do chamador, passar ponteiro para a struct.
+- Componentes sao acessados com (->) quando o parametro e ponteiro,
+  e com (.) quando e valor.
+
+    typedef struct {
+        int   idade;
+        float altura;
+    } Pessoa;
+
+    void envelhecer(Pessoa *p, int anos) {
+        p->idade += anos;          // seta: altera o struct original
+    }
+
+    void mostrar(Pessoa p) {       // valor: so uma copia
+        printf("%d", p.idade);     // ponto: p e uma struct
+    }
+
+    int main() {
+        Pessoa fulano = {20, 1.70};
+        envelhecer(&fulano, 5);
+        mostrar(fulano);            // imprime 25
+    }
+
+
+----------------------------------------------------------------------
+6. PONTEIRO PARA PONTEIRO (ponto duplo de indirecao)
+----------------------------------------------------------------------
+- Usado quando a funcao precisa RECEBER o endereco de um ponteiro,
+  isto e, alterar para onde o ponteiro aponta.
+- Sintaxe: `int **`.
+
+Exemplo:
+    void trocar(int **p) {
+        *p = 50;                   // *p e o ponteiro do chamador
+    }
+
+    int main() {
+        int x = 0;
+        int *ptr = &x;
+        trocar(&ptr);
+        printf("%d", x);           // imprime 50
+    }
+
+
+----------------------------------------------------------------------
+7. PARAMETROS DE main() (argc / argv)
+----------------------------------------------------------------------
+- `main` tambem recebe parametros, vindos da linha de comando.
+- `int argc` -> quantidade de argumentos (o proprio nome do programa conta).
+- `char *argv[]` -> vetor de strings com os argumentos (ponteiros para char).
+- `argv[0]` -> caminho/nome do executavel.
+- argc/argv sao sempre int e char*/char**.
+
+Exemplo:
+    #include <stdio.h>
+    int main(int argc, char *argv[]) {
+        printf("Qtde de argumentos: %d\n", argc);
+        for (int i = 0; i < argc; i++)
+            printf("argv[%d] = %s\n", i, argv[i]);
+        return 0;
+    }
+
+    ./prog.exe ola mundo
+        argc = 3
+        argv[0] = ./prog.exe
+        argv[1] = ola
+        argv[2] = mundo
+
+
+----------------------------------------------------------------------
+8. const no parametro (protecao)
+----------------------------------------------------------------------
+- `const` no parametro impede que a funcao altere o dado recebido.
+- Boa pratica: use sempre que a funcao NAO precisa modificar o dado.
+- `const char *` = ponteiro para texto que nao sera alterado.
+
+    int contar_vogais(const char *texto);   // so le
+    void limpar(int v[], int n);             // precisa alterar -> sem const
+
+
+----------------------------------------------------------------------
+9. REGRAS / BOAS PRATICAS
+----------------------------------------------------------------------
+- Quantidade de parametros: evite muitos (3 a 4 ja e o limite razoavel).
+- SEM valor -> use struct agrupando os dados.
+- Sempre passe o tamanho (`n`) de um vetor.
+- Use `const` em tudo que for apenas leitura.
+- Nunca devolva endereco de variavel local (ela morre no fim da funcao).
+- Parametros e variaveis locais sao destruidos no fim da chamada:
+  para persistir dados, use `malloc` + ponteiro ou variavel global.
+- Documente a funcao indicando o que cada parametro recebe e devolve.
+
+
+=====================================================================
+RESUMO RAPIDO
+=====================================================================
+  ┌──────────────────────┬─────────────────┬────────────────────────┐
+  │ Tipo de parametro     │ Entrega         │ Altera o original?     │
+  ├──────────────────────┼─────────────────┼────────────────────────┤
+  │ int, float, char     │ por valor       │ NAO                    │
+  │ int *, float *       │ por referencia  │ SIM (via *)            │
+  │ int v[], char nome[]  │ por referencia  │ SIM (sempre)           │
+  │ struct / typedef     │ por valor       │ NAO                    │
+  │ struct *             │ por referencia  │ SIM (via ->)           │
+  │ int **               │ indirecao dupla │ SIM (troca o ponteiro)  │
+  │ const T *            │ referencia read │ NAO (protegido)        │
+  └──────────────────────┴─────────────────┴────────────────────────┘
+
+  ┌──────────────────┬──────────────────────────────────────────┐
+  │ Onde tem &       │ Voce passa o ENDERECO da variavel         │
+  │ Onde tem *       │ Voce trabalha no valor apontado           │
+  │ -> struct ptr    │ Acesso a campo de struct via ponteiro    │
+  │ .  struct valor  │ Acesso a campo de struct direta          │
+  │ const            │ Proibe alteracao dentro da funcao        │
+  │ argc / argv      │ Argumentos recebidos pela linha de comando│
+  └──────────────────┴──────────────────────────────────────────┘
