@@ -21,6 +21,11 @@ Complexo multiplicar(Complexo *a, Complexo *b) {
     return resultado;
 }
 
+void imprimir(Complexo n)
+{
+    printf("%d %di", n.a, n.b);
+}
+
 int main() {
     Complexo a, b;
 
@@ -30,8 +35,9 @@ int main() {
     Complexo resultadoSoma = soma(&a, &b);
     Complexo resultadoMult = multiplicar(&a, &b);
 
-    printf("Soma: %d + %di\n", resultadoSoma.a, resultadoSoma.b);
-    printf("Multiplicacao: %d + %di\n", resultadoMult.a, resultadoMult.b);
+    imprimir(resultadoSoma);
+    imprimir(resultadoMult);
 
     return 0;
 }
+
