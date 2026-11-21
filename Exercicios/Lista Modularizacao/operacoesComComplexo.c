@@ -23,7 +23,7 @@ Complexo multiplicar(Complexo *a, Complexo *b) {
 
 void imprimir(Complexo n)
 {
-    printf("%d %di", n.a, n.b);
+    printf("%d %di\n", n.a, n.b);
 }
 
 int main() {
