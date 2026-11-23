@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string.h>
 
 int main()
 {
@@ -15,7 +16,7 @@ int main()
     int i;
     for(int i = 0; i<strlen(c); i++)
     {
-        fputc(c[i], f);c  //escreve um char em txt
+        fputc(c[i], f);  //escreve um char em txt
         fputc(' ',f);
     }
     fclose(f);

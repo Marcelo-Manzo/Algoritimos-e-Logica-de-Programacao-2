@@ -9,6 +9,7 @@ int main(){
     }
     fclose(f);
 }
+
 int main(){
     FILE *f;
     f = fopen("arquivo.txt","w")  //escreve em arquivo txt
