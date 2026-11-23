@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//usado para colocar int, float, double....
+//usado para colocar int, float, double.... tb da para colocar char e strings
 //usadas preferencialmente em binarios
 
 int main()
